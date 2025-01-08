@@ -1,9 +1,10 @@
 import {
   Outlet,
   ScrollRestoration,
-  createRootRoute,
+  createRootRoute
 } from '@tanstack/react-router'
 import { Meta, Scripts } from '@tanstack/start'
+import { ClerkProvider } from "@clerk/tanstack-start";
 
 import type { ReactNode } from 'react'
 
@@ -19,7 +20,24 @@ import poppins700 from '@fontsource/poppins/700.css?url';
 import poppins800 from '@fontsource/poppins/800.css?url';
 import poppins900 from '@fontsource/poppins/900.css?url';
 
+import NavBar from "@/containers/NavBar/NavBar";
+
+import { getSignedInUserId } from "@/data/getSignedInUserId";
+
 export const Route = createRootRoute({
+  notFoundComponent(){
+    return (
+      <div className="text-3xl text-center py-10 text-muted-foreground">
+        Oops! Page not found!
+      </div>
+    )
+  },
+  beforeLoad: async () => {
+    const userId = await getSignedInUserId()
+    return {
+      userId
+    }
+  },
   head: () => ({
     meta: [
       {
@@ -90,15 +108,18 @@ function RootComponent() {
 
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html>
-    <head>
-      <Meta />
-    </head>
-    <body>
-    {children}
-    <ScrollRestoration />
-    <Scripts />
-    </body>
-    </html>
+    <ClerkProvider>
+      <html>
+      <head>
+        <Meta />
+      </head>
+      <body>
+      <NavBar />
+        {children}
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+      </html>
+    </ClerkProvider>
   )
 }

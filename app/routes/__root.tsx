@@ -1,9 +1,10 @@
 import {
   Outlet,
   ScrollRestoration,
-  createRootRoute, Link,
+  createRootRoute
 } from '@tanstack/react-router'
 import { Meta, Scripts } from '@tanstack/start'
+import { ClerkProvider } from "@clerk/tanstack-start";
 
 import type { ReactNode } from 'react'
 
@@ -19,7 +20,7 @@ import poppins700 from '@fontsource/poppins/700.css?url';
 import poppins800 from '@fontsource/poppins/800.css?url';
 import poppins900 from '@fontsource/poppins/900.css?url';
 
-import { ChartColumnBigIcon } from "lucide-react";
+import NavBar from "@/containers/NavBar/NavBar";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -92,20 +93,18 @@ function RootComponent() {
 
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html>
-    <head>
-      <Meta />
-    </head>
-    <body>
-      <nav className="bg-primary p-4 h-20 text-white flex items-center justify-between">
-        <Link to="/" className="flex gap-1 items-center font-bold text-2x">
-          <ChartColumnBigIcon className="text-lime-500" /> TanTracker
-        </Link>
-      </nav>
-      {children}
-      <ScrollRestoration />
-      <Scripts />
-    </body>
-    </html>
+    <ClerkProvider>
+      <html>
+      <head>
+        <Meta />
+      </head>
+      <body>
+      <NavBar />
+        {children}
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+      </html>
+    </ClerkProvider>
   )
 }

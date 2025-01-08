@@ -22,7 +22,22 @@ import poppins900 from '@fontsource/poppins/900.css?url';
 
 import NavBar from "@/containers/NavBar/NavBar";
 
+import { getSignedInUserId } from "@/data/getSignedInUserId";
+
 export const Route = createRootRoute({
+  notFoundComponent(){
+    return (
+      <div className="text-3xl text-center py-10 text-muted-foreground">
+        Oops! Page not found!
+      </div>
+    )
+  },
+  beforeLoad: async () => {
+    const userId = await getSignedInUserId()
+    return {
+      userId
+    }
+  },
   head: () => ({
     meta: [
       {

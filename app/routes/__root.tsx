@@ -1,7 +1,7 @@
 import {
   Outlet,
   ScrollRestoration,
-  createRootRoute,
+  createRootRoute, Link,
 } from '@tanstack/react-router'
 import { Meta, Scripts } from '@tanstack/start'
 
@@ -18,6 +18,8 @@ import poppins600 from '@fontsource/poppins/600.css?url';
 import poppins700 from '@fontsource/poppins/700.css?url';
 import poppins800 from '@fontsource/poppins/800.css?url';
 import poppins900 from '@fontsource/poppins/900.css?url';
+
+import { ChartColumnBigIcon } from "lucide-react";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -95,9 +97,14 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       <Meta />
     </head>
     <body>
-    {children}
-    <ScrollRestoration />
-    <Scripts />
+      <nav className="bg-primary p-4 h-20 text-white flex items-center justify-between">
+        <Link to="/" className="flex gap-1 items-center font-bold text-2x">
+          <ChartColumnBigIcon className="text-lime-500" /> TanTracker
+        </Link>
+      </nav>
+      {children}
+      <ScrollRestoration />
+      <Scripts />
     </body>
     </html>
   )

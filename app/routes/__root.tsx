@@ -1,14 +1,14 @@
 import {
   Outlet,
   ScrollRestoration,
-  createRootRoute
-} from '@tanstack/react-router'
-import { Meta, Scripts } from '@tanstack/start'
-import { ClerkProvider } from "@clerk/tanstack-start";
+  createRootRoute,
+} from '@tanstack/react-router';
+import { Meta, Scripts } from '@tanstack/start';
+import { ClerkProvider } from '@clerk/tanstack-start';
 
-import type { ReactNode } from 'react'
+import type { ReactNode } from 'react';
 
-import appCss from '../app.css?url'
+import appCss from '../app.css?url';
 
 import poppins100 from '@fontsource/poppins/100.css?url';
 import poppins200 from '@fontsource/poppins/200.css?url';
@@ -20,23 +20,24 @@ import poppins700 from '@fontsource/poppins/700.css?url';
 import poppins800 from '@fontsource/poppins/800.css?url';
 import poppins900 from '@fontsource/poppins/900.css?url';
 
-import NavBar from "@/containers/NavBar/NavBar";
+import NavBar from '@/containers/NavBar/NavBar';
 
-import { getSignedInUserId } from "@/data/getSignedInUserId";
+import { getSignedInUserId } from '@/data/getSignedInUserId';
+import { Toaster } from '@/components/ui/toaster';
 
 export const Route = createRootRoute({
-  notFoundComponent(){
+  notFoundComponent() {
     return (
       <div className="text-3xl text-center py-10 text-muted-foreground">
         Oops! Page not found!
       </div>
-    )
+    );
   },
   beforeLoad: async () => {
-    const userId = await getSignedInUserId()
+    const userId = await getSignedInUserId();
     return {
-      userId
-    }
+      userId,
+    };
   },
   head: () => ({
     meta: [
@@ -92,34 +93,34 @@ export const Route = createRootRoute({
         rel: 'stylesheet',
         href: poppins900,
       },
-
-    ]
+    ],
   }),
   component: RootComponent,
-})
+});
 
 function RootComponent() {
   return (
     <RootDocument>
       <Outlet />
     </RootDocument>
-  )
+  );
 }
 
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <ClerkProvider>
       <html>
-      <head>
-        <Meta />
-      </head>
-      <body>
-      <NavBar />
-        {children}
-        <ScrollRestoration />
-        <Scripts />
-      </body>
+        <head>
+          <Meta />
+        </head>
+        <body>
+          <NavBar />
+          {children}
+          <Toaster />
+          <ScrollRestoration />
+          <Scripts />
+        </body>
       </html>
     </ClerkProvider>
-  )
+  );
 }

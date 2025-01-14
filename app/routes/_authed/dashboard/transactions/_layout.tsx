@@ -1,17 +1,18 @@
-import { createFileRoute, Link, Outlet } from '@tanstack/react-router'
+import { createFileRoute, Link, Outlet } from '@tanstack/react-router';
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
-  BreadcrumbList, BreadcrumbPage,
-  BreadcrumbSeparator
-} from "@/components/ui/breadcrumb";
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
 
 export const Route = createFileRoute('/_authed/dashboard/transactions/_layout')(
   {
     component: RouteComponent,
-  },
-)
+  }
+);
 
 function RouteComponent() {
   return (
@@ -20,22 +21,16 @@ function RouteComponent() {
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <Link to="/dashboard">
-                Dashboard
-              </Link>
+              <Link to="/dashboard">Dashboard</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbItem>
-              <BreadcrumbPage>
-                Transactions
-              </BreadcrumbPage>
-            </BreadcrumbItem>
+            <BreadcrumbPage>Transactions</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
       <Outlet />
     </div>
-  )
+  );
 }

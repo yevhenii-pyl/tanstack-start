@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { format } from 'date-fns';
+import { Link } from '@tanstack/react-router';
+import numeral from 'numeral';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
@@ -10,7 +12,6 @@ import {
   SelectItem,
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { Link } from '@tanstack/react-router';
 import {
   Table,
   TableBody,
@@ -20,7 +21,6 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import numeral from 'numeral';
 import { PencilIcon } from 'lucide-react';
 
 export function AllTransactions({
@@ -144,8 +144,14 @@ export function AllTransactions({
                       variant="outline"
                       size="icon"
                       aria-label="edit transaction"
+                      asChild
                     >
-                      <PencilIcon />
+                      <Link
+                        to={`/dashboard/transactions/$transactionId`}
+                        params={{ transactionId: transaction.id.toString() }}
+                      >
+                        <PencilIcon />
+                      </Link>
                     </Button>
                   </TableCell>
                 </TableRow>

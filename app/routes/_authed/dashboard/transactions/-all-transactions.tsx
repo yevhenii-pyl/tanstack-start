@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { format } from 'date-fns';
-import { Link } from '@tanstack/react-router';
+import { Link, useRouter } from '@tanstack/react-router';
 import numeral from 'numeral';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -41,6 +41,8 @@ export function AllTransactions({
     transactionType: 'income' | 'expense' | null;
   }[];
 }) {
+  const router = useRouter();
+
   const [selectedYear, setSelectedYear] = useState(year);
   const [selectedMonth, setSelectedMonth] = useState(month);
 
@@ -149,6 +151,13 @@ export function AllTransactions({
                       <Link
                         to={`/dashboard/transactions/$transactionId`}
                         params={{ transactionId: transaction.id.toString() }}
+                        onClick={() => {
+                          router.clearCache({
+                            filter: (route) =>
+                              route.pathname !==
+                              `/dashboard/transactions/${transaction.id}`,
+                          });
+                        }}
                       >
                         <PencilIcon />
                       </Link>

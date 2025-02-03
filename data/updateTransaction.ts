@@ -30,7 +30,6 @@ export const updateTransaction = createServerFn({
     await db
       .update(transactionsTable)
       .set({
-        userId: context.userId,
         amount: data.amount.toString(),
         categoryId: data.categoryId,
         transactionDate: data.transactionDate,

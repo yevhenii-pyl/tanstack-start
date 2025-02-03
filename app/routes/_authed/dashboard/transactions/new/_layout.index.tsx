@@ -44,7 +44,7 @@ function RouteComponent() {
 
     toast({
       title: 'Success!',
-      description: 'Transaction created',
+      description: `Transaction with id ${transaction[0].id} created`,
       className: 'bg-green-500 text-white',
     });
 

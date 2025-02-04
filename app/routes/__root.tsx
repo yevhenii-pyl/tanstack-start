@@ -24,8 +24,18 @@ import NavBar from '@/containers/NavBar/NavBar';
 
 import { getSignedInUserId } from '@/data/getSignedInUserId';
 import { Toaster } from '@/components/ui/toaster';
+import LoadingSkeleton from '@/components/loading-skeleton';
 
 export const Route = createRootRoute({
+  wrapInSuspense: true,
+  pendingComponent: () => {
+    return (
+      <div className="max-w-screen-xl mx-auto py-5">
+        <LoadingSkeleton />
+      </div>
+    );
+  },
+  pendingMs: 0,
   notFoundComponent() {
     return (
       <div className="text-3xl text-center py-10 text-muted-foreground">
